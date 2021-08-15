@@ -71,6 +71,8 @@ while B:
         droite.y-=10
     elif pres.get(pg.K_m):
         droite.y+=10
+    droite.y=droite.y%Y
+    gauche.y=gauche.y%Y
     for event in pg.event.get():
         if event.type==pg.QUIT:
             B=0

@@ -63,7 +63,8 @@ class Vec:
     def pointtoo(self,form:Pos,to:Pos):
         self.angle=form.angle(to)
         self.update()
-    def collide(self,val):self.angle-=val
+    def collide(self,val):
+        self.angle-=val+math.pi/2
     def __add__(self,other):
         x=self.x+other.x
         y=self.y+other.y
