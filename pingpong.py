@@ -1,7 +1,7 @@
 import pygame as pg
 import utis
 from random import random
-from utis import math
+import math
 
 pg.init()
 X=750
@@ -9,7 +9,8 @@ Y=500
 f=pg.display.set_mode(size=(X+50,Y+50))
 fps=pg.time.Clock()
 B=1
-ATTRACTION=.5
+ATTRACTION=.1
+maxspeed=1
 class Balle:
     def __init__(self,X,Y):
         self.x=X
@@ -49,15 +50,17 @@ class Balle:
             
             if who!=-1:
                 other=balls[who]
-                self.vecy=self.y-other.y
-                self.vecx=self.x-other.x
+                self.vecy+=(self.y-other.y)*ATTRACTION
+                self.vecx+=(self.x-other.x)*ATTRACTION
                 if self.vecx==self.vecy==0:
                     self.vecx=random()
                     self.vecy=random()
-        self.vecy+=.01
-        self.vecx-=math.copysign(.01,self.x-X/2)
+        #self.vecy+=.01
+        #self.vecx-=math.copysign(.01,self.x-X/2)
         self.vecx+=(sum(obj.x for obj in balls)/len(balls)-self.x)*ATTRACTION
         self.vecy+=(sum(obj.y for obj in balls)/len(balls)-self.y)*ATTRACTION
+        if self.vecx>maxspeed:self.vecx=maxspeed
+        if self.vecy>maxspeed:self.vecy=maxspeed
     __repr__=lambda s:f'|{s.x},{s.y}|'
     
 
